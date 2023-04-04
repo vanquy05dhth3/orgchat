@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /*CSS*/
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            font-family: Helvetica;
+        }
+
+        #tree {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="width:100%; height:700px;" id="tree"></div>
+    <script src="./orgchart.js"></script>
+    <script>
+        //JavaScript
+
+        var chart = new OrgChart(document.getElementById("tree"), {
+            template: "deborah",
+            mouseScrool: OrgChart.action.none,
+            enableSearch: false,
+            nodeBinding: {
+                img_0: "img",
+                field_0: "name",
+                field_1: "title"
+            },
+            nodes: [
+                { id: 1, name: "Ngoc Phan", title: "President", img: "./ngoc.png" },
+                { id: 2, pid: 1, name: "Tam Nguyen", title: "Manager", img: "./tam.jpg" },
+                { id: 3, pid: 2, name: "Long Van", title: "Sale Marketing", img: "./long.png" },
+                { id: 4, pid: 2, name: "Duy Huu",title: "HR", img: "./duy.png" }
+            ]
+        });
+    </script>
+</body>
+
+</html>
