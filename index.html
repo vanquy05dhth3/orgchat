@@ -1,57 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /*CSS*/
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            padding: 0;
-            margin: 0;
-            overflow: hidden;
-            font-family: Helvetica;
-        }
-
-        #tree {
-            width: 100%;
-            height: 100%;
-        }
-    </style>
-    <title>Document</title>
+    <title>Using Clipboard API</title>
 </head>
-
 <body>
-    <div style="width:100%; height:700px;" id="tree"></div>
-    <script src="./orgchart.js"></script>
+    <button type="button" onclick="pasteImages()">Paste Images</button>
     <script>
-        //JavaScript
-
-        var chart = new OrgChart(document.getElementById("tree"), {
-            template: "deborah",
-            mouseScrool: OrgChart.action.none,
-            enableSearch: false,
-            nodeBinding: {
-                img_0: "img",
-                field_0: "name",
-                field_1: "title"
-            },
-            nodes: [
-                { id: 1, name: "Ngoc Phan", title: "President", img: "./ngoc.png" },
-                { id: 2, pid: 1, name: "Tam Nguyen", title: "Manager", img: "./tam.jpg" },
-                { id: 3, pid: 2, name: "Long Van", title: "Sale Marketing", img: "./long.png" },
-                { id: 4, pid: 2, name: "Duy Huu",title: "HR", img: "./duy.png" },
-                { id: 5, pid: 2, name: "Dat Ten Sau",title: "HR & Admin Officer" },
-                { id: 6, pid: 2, name: "Dat Ten Sau",title: "Sale Admin" },
-                { id: 7, pid: 2, name: "Dat Ten Sau",title: "SALE Manager" },
-                { id: 8, pid: 2, name: "Dat Ten Sau",title: "Accounting Manager"},
-            ]
-        });
+        function pasteImages()
+        {
+            // Request permission to access the clipboard
+            navigator.permissions.query({ name: 'clipboard-read' }).then(result => {
+            if (result.state === 'granted' || result.state === 'prompt') {
+                // Read text data from the clipboard
+                navigator.clipboard.read().then(data => {
+                // Check if the clipboard data has files
+                console.log('clipboard-read', data)
+                }).catch(error => {
+                console.error('Error reading clipboard data:', error);
+                });
+            } else {
+                console.error('Permission to access clipboard denied.');
+            }
+            }).catch(error => {
+            console.error('Error requesting clipboard permissions:', error);
+            });
+        }
     </script>
 </body>
-
 </html>
